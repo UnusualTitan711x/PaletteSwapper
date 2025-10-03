@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://tgia4rcb1laa"]
+[gd_scene load_steps=4 format=3 uid="uid://tgia4rcb1laa"]
 
 [ext_resource type="Script" uid="uid://rsmk1mw1j23e" path="res://addons/palette_swapper/test_button.gd" id="1_2vxlo"]
 [ext_resource type="Script" uid="uid://bp6suwdooj3wl" path="res://addons/palette_swapper/toolpanel.gd" id="1_m1ixp"]
-[ext_resource type="Script" uid="uid://b1jk41gs27vkj" path="res://addons/palette_swapper/button.gd" id="2_l0rds"]
 [ext_resource type="Script" uid="uid://8wlp54gwf3b2" path="res://addons/palette_swapper/plugin_resource_picker.gd" id="3_0qdf2"]
 
 [node name="Tool panel" type="VBoxContainer"]
@@ -21,17 +20,6 @@ theme_override_font_sizes/font_size = 21
 text = "BUTTON"
 script = ExtResource("1_2vxlo")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="SpinBox" type="SpinBox" parent="HBoxContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-text = "Activate"
-script = ExtResource("2_l0rds")
-
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
 
@@ -41,8 +29,26 @@ base_type = "PackedScene"
 script = ExtResource("3_0qdf2")
 metadata/_custom_type_script = "uid://8wlp54gwf3b2"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 text = "Target Color"
 
-[connection signal="pressed" from="HBoxContainer/Button" to="HBoxContainer/Button" method="_on_pressed"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Target Color"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+text = "Replace Color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Target Color"
