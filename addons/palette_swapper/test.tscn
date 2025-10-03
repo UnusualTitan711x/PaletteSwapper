@@ -1,20 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://tgia4rcb1laa"]
+[gd_scene load_steps=5 format=3 uid="uid://tgia4rcb1laa"]
 
 [ext_resource type="Script" uid="uid://rsmk1mw1j23e" path="res://addons/palette_swapper/test_button.gd" id="1_2vxlo"]
+[ext_resource type="Script" uid="uid://bp6suwdooj3wl" path="res://addons/palette_swapper/toolpanel.gd" id="1_m1ixp"]
+[ext_resource type="Script" uid="uid://b1jk41gs27vkj" path="res://addons/palette_swapper/button.gd" id="2_l0rds"]
+[ext_resource type="Script" uid="uid://8wlp54gwf3b2" path="res://addons/palette_swapper/plugin_resource_picker.gd" id="3_0qdf2"]
 
-[node name="Control" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Tool panel" type="VBoxContainer"]
+offset_right = 94.0
+offset_bottom = 38.0
+script = ExtResource("1_m1ixp")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Palette Swapper"
+horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_top = -1.0
-offset_right = 94.0
-offset_bottom = 37.0
+layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "BUTTON"
 script = ExtResource("1_2vxlo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Activate"
+script = ExtResource("2_l0rds")
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="AddonResourcePicker" type="EditorResourcePicker" parent="."]
+layout_mode = 2
+base_type = "PackedScene"
+script = ExtResource("3_0qdf2")
+metadata/_custom_type_script = "uid://8wlp54gwf3b2"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+layout_mode = 2
+text = "Target Color"
+
+[connection signal="pressed" from="HBoxContainer/Button" to="HBoxContainer/Button" method="_on_pressed"]
