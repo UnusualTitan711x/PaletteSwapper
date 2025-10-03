@@ -5,9 +5,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ckr1c"]
 shader = ExtResource("1_4n86w")
-shader_parameter/target_color = Color(0.172549, 0.772549, 0.964706, 1)
-shader_parameter/replace_color = Color(0.826853, 0.448866, 0.0583117, 1)
-shader_parameter/tolerance = 0.01
+shader_parameter/target_color = Color(0.796078, 0.505882, 0.368627, 1)
+shader_parameter/replace_color = Color(0.246651, 2.15626e-05, 0.967324, 1)
+shader_parameter/tolerance = 0.46
 
 [node name="Node2D" type="Node2D"]
 
