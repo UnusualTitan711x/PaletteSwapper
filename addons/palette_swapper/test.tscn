@@ -88,6 +88,10 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
+[node name="NextPass" type="Button" parent="."]
+layout_mode = 2
+text = "Next Pass"
+
 [node name="HSeparator2" type="HSeparator" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 22
@@ -116,7 +120,7 @@ theme_override_constants/separation = 22
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 21
-text = "Apply Changes"
+text = "Apply"
 
 [node name="FileDialog" type="FileDialog" parent="."]
 position = Vector2i(0, 36)
@@ -124,5 +128,6 @@ position = Vector2i(0, 36)
 [connection signal="color_changed" from="Target Container/TargetColorPicker" to="." method="_on_target_color_picker_color_changed"]
 [connection signal="color_changed" from="Replace Container/ReplaceColorPicker" to="." method="_on_replace_color_picker_color_changed"]
 [connection signal="value_changed" from="Tolerance Container/Tolerance" to="." method="_on_tolerance_value_changed"]
+[connection signal="pressed" from="NextPass" to="." method="_on_next_pass_pressed"]
 [connection signal="pressed" from="ApplyButton" to="." method="_on_apply_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

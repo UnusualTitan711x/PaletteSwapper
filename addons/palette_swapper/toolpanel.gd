@@ -22,11 +22,7 @@ func _ready() -> void:
 	
 	
 	$TextureRect.texture = viewport.get_texture()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	
 
 func _on_texture_selected(tex: Texture2D):
 	# resize and center the viewport to fit the texture
@@ -111,3 +107,18 @@ func save_baked_texture(texture: ImageTexture):
 	
 	#Refresh the editor
 	EditorInterface.get_resource_filesystem().scan()
+
+func next_pass():
+	var current_tex = sprite.texture
+	var next_tex = bake(
+		sprite.texture,
+		mat.get_shader_parameter("target_color"), 
+		mat.get_shader_parameter("replace_color"), 
+		mat.get_shader_parameter("tolerance")
+	)
+	
+	sprite.texture = next_tex
+
+
+func _on_next_pass_pressed() -> void:
+	next_pass()
