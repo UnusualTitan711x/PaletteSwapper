@@ -8,6 +8,10 @@ shader = ExtResource("1_4n86w")
 shader_parameter/target_color = Color(0.0784314, 0.564706, 0.764706, 1)
 shader_parameter/replace_color = Color(0.923083, 0.528541, 0.583232, 1)
 shader_parameter/tolerance = 0.0
+shader_parameter/master = false
+shader_parameter/hue_shift = 0.0
+shader_parameter/sat_shift = 0.0
+shader_parameter/val_shift = 0.0
 
 [node name="Node2D" type="Node2D"]
 

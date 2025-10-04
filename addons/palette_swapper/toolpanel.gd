@@ -9,6 +9,12 @@ extends VBoxContainer
 var texture
 var shader = preload("res://addons/palette_swapper/test_swap.gdshader")
 var mat : ShaderMaterial
+var master: bool = false
+
+var hsv: Vector3
+var hue_shift : float
+var sat_shift : float
+var val_shift : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,6 +26,9 @@ func _ready() -> void:
 	sprite.material = mat
 	sprite.texture = texture
 	
+	mat.set_shader_parameter("target_color", Color.BLACK)
+	mat.set_shader_parameter("replace_color", Color.BLACK)
+	mat.set_shader_parameter("tolerance", 0.0)
 	
 	$TextureRect.texture = viewport.get_texture()
 	
@@ -51,18 +60,31 @@ func bake(source: Texture2D, target_color: Color, replace_color: Color, toleranc
 		for x in range(working_img.get_width()):
 			var c = working_img.get_pixel(x, y)
 			
+			hsv.x = fmod(c.h + hue_shift, 1.0)
+			hsv.y = clamp(c.s + sat_shift, 0.0, 1.0)
+			hsv.z = clamp(c.v + val_shift, 0.0, 1.0)
+			
+			if master:
+				var new_color2 = Color.from_hsv(
+						hsv.x, # Replace hue
+						hsv.y, # Maintain saturation
+						hsv.z, # Maintain the same brightness
+						c.a # Maintain alpha
+					)
+					
+				working_img.set_pixel(x, y, new_color2)
 			# Closeness to color
-			if color_distance(c, target_color) < tolerance:
-				
+			elif color_distance(c, target_color) < tolerance:
 				var new_color = Color.from_hsv(
 					replace_color.h, # Replace hue
-					c.s, # Replace saturation
+					c.s, # Maintain saturation
 					c.v, # Maintain the same brightness
 					c.a # Maintain alpha
 				)
 				
-				# Replace the pixel with its new color
 				working_img.set_pixel(x, y, new_color)
+			
+			
 	
 	# Output hte final texture
 	var out = ImageTexture.create_from_image(working_img)
@@ -121,4 +143,24 @@ func next_pass():
 
 
 func _on_next_pass_pressed() -> void:
+	if master: return
 	next_pass()
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	$Container.visible = toggled_on
+	master = toggled_on
+	mat.set_shader_parameter("master", toggled_on)
+
+
+func _on_hue_value_changed(value: float) -> void:
+	mat.set_shader_parameter("hue_shift", value)
+	hue_shift = value
+
+func _on_saturation_value_changed(value: float) -> void:
+	mat.set_shader_parameter("sat_shift", value)
+	sat_shift = value
+
+func _on_value_value_changed(value: float) -> void:
+	mat.set_shader_parameter("val_shift", value)
+	val_shift = value

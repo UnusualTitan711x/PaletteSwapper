@@ -5,6 +5,11 @@ uniform vec4 target_color : source_color;
 uniform vec4 replace_color : source_color;
 uniform float tolerance : hint_range(0, 1);
 
+uniform bool master;
+uniform float hue_shift;
+uniform float sat_shift;
+uniform float val_shift;
+
 //Converts RGB to HSV
 vec3 rgb2hsv(vec3 c)
 {
@@ -62,8 +67,13 @@ vec3 hsv2rgb(vec3 c)
 void fragment()
 {
 	vec4 tex_color = texture(TEXTURE, UV);
+	vec3 hsv = rgb2hsv(tex_color.rgb);
 	
 	float dist = distance(tex_color.rgb, target_color.rgb);
+	
+	hsv.x = mod(hsv.x + hue_shift, 1.0);
+	hsv.y = clamp(hsv.y + sat_shift, 0.0, 1.0);
+	hsv.z = clamp(hsv.z + val_shift, 0.0, 1.0);
 	
 	if (dist < tolerance)
 	{
@@ -78,5 +88,12 @@ void fragment()
 		tex_color.rgb = hsv2rgb(hsv_tex);
 	}
 	
-	COLOR = tex_color;
+	if (master) {
+		COLOR.rgb = hsv2rgb(hsv);
+		COLOR.a = tex_color.a;
+	}else 
+	{
+		COLOR = tex_color;
+	}
+	
 }

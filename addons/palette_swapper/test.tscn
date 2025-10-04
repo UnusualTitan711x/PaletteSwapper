@@ -15,32 +15,44 @@ shader = ExtResource("3_m1ixp")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/tolerance = 0.0
+shader_parameter/master = false
+shader_parameter/hue_shift = 0.0
+shader_parameter/sat_shift = 0.0
+shader_parameter/val_shift = 0.0
 
-[node name="Tool panel" type="VBoxContainer"]
-offset_right = 213.0
-offset_bottom = 225.0
+[node name="ScrollContainer" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Tool panel" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("1_m1ixp")
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="Tool panel"]
 layout_mode = 2
 text = "Palette Swapper"
 label_settings = SubResource("LabelSettings_0qdf2")
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="HSeparator" type="HSeparator" parent="Tool panel"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Texture Container" type="HBoxContainer" parent="."]
+[node name="Texture Container" type="HBoxContainer" parent="Tool panel"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="Texture Container"]
+[node name="Label" type="Label" parent="Tool panel/Texture Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Texture"
 
-[node name="AddonResourcePicker" type="EditorResourcePicker" parent="Texture Container"]
+[node name="AddonResourcePicker" type="EditorResourcePicker" parent="Tool panel/Texture Container"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -48,86 +60,144 @@ base_type = "Texture2D"
 script = ExtResource("3_0qdf2")
 metadata/_custom_type_script = "uid://8wlp54gwf3b2"
 
-[node name="Target Container" type="HBoxContainer" parent="."]
+[node name="Target Container" type="HBoxContainer" parent="Tool panel"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Target Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Target Color"
-
-[node name="TargetColorPicker" type="ColorPickerButton" parent="Target Container"]
+[node name="Label" type="Label" parent="Tool panel/Target Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Target Color"
 
-[node name="Replace Container" type="HBoxContainer" parent="."]
+[node name="TargetColorPicker" type="ColorPickerButton" parent="Tool panel/Target Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Target Color"
+
+[node name="Replace Container" type="HBoxContainer" parent="Tool panel"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Replace Container"]
+[node name="Label" type="Label" parent="Tool panel/Replace Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Replace Color"
 
-[node name="ReplaceColorPicker" type="ColorPickerButton" parent="Replace Container"]
+[node name="ReplaceColorPicker" type="ColorPickerButton" parent="Tool panel/Replace Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Target Color"
 
-[node name="Tolerance Container" type="HBoxContainer" parent="."]
+[node name="Tolerance Container" type="HBoxContainer" parent="Tool panel"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Tolerance Container"]
+[node name="Label" type="Label" parent="Tool panel/Tolerance Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tolerance"
 
-[node name="Tolerance" type="HSlider" parent="Tolerance Container"]
+[node name="Tolerance" type="HSlider" parent="Tool panel/Tolerance Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="NextPass" type="Button" parent="."]
+[node name="NextPass" type="Button" parent="Tool panel"]
 layout_mode = 2
 text = "Next Pass"
 
-[node name="HSeparator2" type="HSeparator" parent="."]
+[node name="HSeparator2" type="HSeparator" parent="Tool panel"]
 layout_mode = 2
 theme_override_constants/separation = 22
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="CheckBox" type="CheckBox" parent="Tool panel"]
+layout_mode = 2
+text = "Modify whole color range"
+
+[node name="Container" type="VBoxContainer" parent="Tool panel"]
+visible = false
+layout_mode = 2
+
+[node name="HueContainer" type="HBoxContainer" parent="Tool panel/Container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tool panel/Container/HueContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hue"
+
+[node name="hue" type="HSlider" parent="Tool panel/Container/HueContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="SaturationContainer" type="HBoxContainer" parent="Tool panel/Container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tool panel/Container/SaturationContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Saturation"
+
+[node name="saturation" type="HSlider" parent="Tool panel/Container/SaturationContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="ValueContainer" type="HBoxContainer" parent="Tool panel/Container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tool panel/Container/ValueContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Value"
+
+[node name="value" type="HSlider" parent="Tool panel/Container/ValueContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="HSeparator4" type="HSeparator" parent="Tool panel"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="TextureRect" type="TextureRect" parent="Tool panel"]
 layout_mode = 2
 texture = SubResource("ViewportTexture_0qdf2")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="Tool panel"]
 size = Vector2i(16, 16)
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport"]
+[node name="Sprite2D" type="Sprite2D" parent="Tool panel/SubViewport"]
 material = SubResource("ShaderMaterial_m1ixp")
 position = Vector2(189, 85)
 
-[node name="Preview Label" type="Label" parent="."]
+[node name="Preview Label" type="Label" parent="Tool panel"]
 layout_mode = 2
 text = "Preview"
 horizontal_alignment = 1
 
-[node name="HSeparator3" type="HSeparator" parent="."]
+[node name="HSeparator3" type="HSeparator" parent="Tool panel"]
 layout_mode = 2
 theme_override_constants/separation = 22
 
-[node name="ApplyButton" type="Button" parent="."]
+[node name="ApplyButton" type="Button" parent="Tool panel"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 21
 text = "Apply"
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="Tool panel"]
 position = Vector2i(0, 36)
 
-[connection signal="color_changed" from="Target Container/TargetColorPicker" to="." method="_on_target_color_picker_color_changed"]
-[connection signal="color_changed" from="Replace Container/ReplaceColorPicker" to="." method="_on_replace_color_picker_color_changed"]
-[connection signal="value_changed" from="Tolerance Container/Tolerance" to="." method="_on_tolerance_value_changed"]
-[connection signal="pressed" from="NextPass" to="." method="_on_next_pass_pressed"]
-[connection signal="pressed" from="ApplyButton" to="." method="_on_apply_button_pressed"]
-[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="color_changed" from="Tool panel/Target Container/TargetColorPicker" to="Tool panel" method="_on_target_color_picker_color_changed"]
+[connection signal="color_changed" from="Tool panel/Replace Container/ReplaceColorPicker" to="Tool panel" method="_on_replace_color_picker_color_changed"]
+[connection signal="value_changed" from="Tool panel/Tolerance Container/Tolerance" to="Tool panel" method="_on_tolerance_value_changed"]
+[connection signal="pressed" from="Tool panel/NextPass" to="Tool panel" method="_on_next_pass_pressed"]
+[connection signal="toggled" from="Tool panel/CheckBox" to="Tool panel" method="_on_check_box_toggled"]
+[connection signal="value_changed" from="Tool panel/Container/HueContainer/hue" to="Tool panel" method="_on_hue_value_changed"]
+[connection signal="value_changed" from="Tool panel/Container/SaturationContainer/saturation" to="Tool panel" method="_on_saturation_value_changed"]
+[connection signal="value_changed" from="Tool panel/Container/ValueContainer/value" to="Tool panel" method="_on_value_value_changed"]
+[connection signal="pressed" from="Tool panel/ApplyButton" to="Tool panel" method="_on_apply_button_pressed"]
+[connection signal="file_selected" from="Tool panel/FileDialog" to="Tool panel" method="_on_file_dialog_file_selected"]
