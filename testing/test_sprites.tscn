@@ -1,16 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://8htr571avgd8"]
 
-[ext_resource type="Shader" uid="uid://bwhuqfnhox0cy" path="res://testing/test_swap.gdshader" id="1_4n86w"]
+[ext_resource type="Shader" uid="uid://bwhuqfnhox0cy" path="res://addons/palette_swapper/test_swap.gdshader" id="1_4n86w"]
 [ext_resource type="Texture2D" uid="uid://cqk6ti6071f2f" path="res://addons/palette_swapper/tilemap.png" id="2_6c0un"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ckr1c"]
 shader = ExtResource("1_4n86w")
-shader_parameter/target_color = Color(0, 0.564164, 0.359869, 1)
-shader_parameter/replace_color = Color(0.855913, 0.58858, 1, 1)
-shader_parameter/tolerance = 0.445
+shader_parameter/target_color = Color(0.0784314, 0.564706, 0.764706, 1)
+shader_parameter/replace_color = Color(0.923083, 0.528541, 0.583232, 1)
+shader_parameter/tolerance = 0.0
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 material = SubResource("ShaderMaterial_ckr1c")
 texture = ExtResource("2_6c0un")
