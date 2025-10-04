@@ -10,7 +10,7 @@ func _enter_tree() -> void:
 	
 	#add_control_to_container(EditorPlugin.CONTAINER_TOOLBAR, toolbar)
 	#add_control_to_bottom_panel(toolbar, "Swapper")
-	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BL, toolbar)
+	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_UL, toolbar)
 
 func _exit_tree() -> void:
 	# Clean-up of the plugin goes here.

@@ -1,7 +1,7 @@
 @tool
 extends VBoxContainer
 
-@onready var picker: AddonResourcePicker = $HBoxContainer3/AddonResourcePicker
+@onready var picker: AddonResourcePicker = %AddonResourcePicker
 @onready var sprite: Sprite2D = $SubViewport/Sprite2D
 @onready var viewport: SubViewport = $SubViewport
 @onready var file_dialog: FileDialog = $FileDialog

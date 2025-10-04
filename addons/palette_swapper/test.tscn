@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://tgia4rcb1laa"]
+[gd_scene load_steps=7 format=3 uid="uid://tgia4rcb1laa"]
 
 [ext_resource type="Script" uid="uid://bp6suwdooj3wl" path="res://addons/palette_swapper/toolpanel.gd" id="1_m1ixp"]
 [ext_resource type="Script" uid="uid://8wlp54gwf3b2" path="res://addons/palette_swapper/plugin_resource_picker.gd" id="3_0qdf2"]
 [ext_resource type="Shader" uid="uid://bwhuqfnhox0cy" path="res://addons/palette_swapper/test_swap.gdshader" id="3_m1ixp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0qdf2"]
+font_size = 21
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0qdf2"]
 viewport_path = NodePath("SubViewport")
@@ -14,74 +17,80 @@ shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/tolerance = 0.0
 
 [node name="Tool panel" type="VBoxContainer"]
-offset_right = 94.0
-offset_bottom = 38.0
+offset_right = 213.0
+offset_bottom = 225.0
 script = ExtResource("1_m1ixp")
 
-[node name="Label" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 2
 text = "Palette Swapper"
+label_settings = SubResource("LabelSettings_0qdf2")
 horizontal_alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+[node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="HBoxContainer3"]
+[node name="Texture Container" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Texture Container"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Texture"
 
-[node name="AddonResourcePicker" type="EditorResourcePicker" parent="HBoxContainer3"]
+[node name="AddonResourcePicker" type="EditorResourcePicker" parent="Texture Container"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 base_type = "Texture2D"
 script = ExtResource("3_0qdf2")
 metadata/_custom_type_script = "uid://8wlp54gwf3b2"
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="Target Container" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="HBoxContainer"]
-layout_mode = 2
-text = "Target Color"
-
-[node name="TargetColorPicker" type="ColorPickerButton" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="Target Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Target Color"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="TargetColorPicker" type="ColorPickerButton" parent="Target Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Target Color"
+
+[node name="Replace Container" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer2"]
+[node name="Label" type="Label" parent="Replace Container"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Replace Color"
 
-[node name="ReplaceColorPicker" type="ColorPickerButton" parent="HBoxContainer2"]
+[node name="ReplaceColorPicker" type="ColorPickerButton" parent="Replace Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Target Color"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="."]
+[node name="Tolerance Container" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer4"]
+[node name="Label" type="Label" parent="Tolerance Container"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Tolerance"
 
-[node name="Tolerance" type="HSlider" parent="HBoxContainer4"]
+[node name="Tolerance" type="HSlider" parent="Tolerance Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="ApplyButton" type="Button" parent="."]
+[node name="HSeparator2" type="HSeparator" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 21
-text = "Apply Changes"
+theme_override_constants/separation = 22
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
@@ -94,11 +103,26 @@ size = Vector2i(16, 16)
 material = SubResource("ShaderMaterial_m1ixp")
 position = Vector2(189, 85)
 
+[node name="Preview Label" type="Label" parent="."]
+layout_mode = 2
+text = "Preview"
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="ApplyButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 21
+text = "Apply Changes"
+
 [node name="FileDialog" type="FileDialog" parent="."]
 position = Vector2i(0, 36)
 
-[connection signal="color_changed" from="HBoxContainer/TargetColorPicker" to="." method="_on_target_color_picker_color_changed"]
-[connection signal="color_changed" from="HBoxContainer2/ReplaceColorPicker" to="." method="_on_replace_color_picker_color_changed"]
-[connection signal="value_changed" from="HBoxContainer4/Tolerance" to="." method="_on_tolerance_value_changed"]
+[connection signal="color_changed" from="Target Container/TargetColorPicker" to="." method="_on_target_color_picker_color_changed"]
+[connection signal="color_changed" from="Replace Container/ReplaceColorPicker" to="." method="_on_replace_color_picker_color_changed"]
+[connection signal="value_changed" from="Tolerance Container/Tolerance" to="." method="_on_tolerance_value_changed"]
 [connection signal="pressed" from="ApplyButton" to="." method="_on_apply_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
