@@ -6,7 +6,7 @@ var toolbar
 func _enter_tree() -> void:
 	# Initialization of the plugin goes here.
 	
-	toolbar = preload("res://addons/palette_swapper/test.tscn").instantiate()
+	toolbar = preload("res://addons/palette_swapper/panel.tscn").instantiate()
 	
 	#add_control_to_container(EditorPlugin.CONTAINER_TOOLBAR, toolbar)
 	#add_control_to_bottom_panel(toolbar, "Swapper")

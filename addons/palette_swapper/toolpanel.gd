@@ -7,7 +7,7 @@ extends VBoxContainer
 @onready var file_dialog: FileDialog = $FileDialog
 
 var texture
-var shader = preload("res://addons/palette_swapper/test_swap.gdshader")
+var shader = preload("res://addons/palette_swapper/swap.gdshader")
 var mat : ShaderMaterial
 var master: bool = false
 

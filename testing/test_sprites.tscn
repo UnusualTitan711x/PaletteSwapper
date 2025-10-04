@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://8htr571avgd8"]
 
-[ext_resource type="Shader" uid="uid://bwhuqfnhox0cy" path="res://addons/palette_swapper/test_swap.gdshader" id="1_4n86w"]
+[ext_resource type="Shader" uid="uid://bwhuqfnhox0cy" path="res://addons/palette_swapper/swap.gdshader" id="1_4n86w"]
 [ext_resource type="Texture2D" uid="uid://cqk6ti6071f2f" path="res://addons/palette_swapper/tilemap.png" id="2_6c0un"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ckr1c"]

@@ -1,17 +1,17 @@
 [gd_scene load_steps=7 format=3 uid="uid://tgia4rcb1laa"]
 
-[ext_resource type="Script" uid="uid://bp6suwdooj3wl" path="res://addons/palette_swapper/toolpanel.gd" id="1_m1ixp"]
-[ext_resource type="Script" uid="uid://8wlp54gwf3b2" path="res://addons/palette_swapper/plugin_resource_picker.gd" id="3_0qdf2"]
-[ext_resource type="Shader" uid="uid://bwhuqfnhox0cy" path="res://addons/palette_swapper/test_swap.gdshader" id="3_m1ixp"]
+[ext_resource type="Script" uid="uid://bp6suwdooj3wl" path="res://addons/palette_swapper/toolpanel.gd" id="1_nnncb"]
+[ext_resource type="Script" uid="uid://8wlp54gwf3b2" path="res://addons/palette_swapper/plugin_resource_picker.gd" id="2_tjb3y"]
+[ext_resource type="Shader" uid="uid://bwhuqfnhox0cy" path="res://addons/palette_swapper/swap.gdshader" id="3_w8vbv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0qdf2"]
 font_size = 21
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_0qdf2"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_nnncb"]
+viewport_path = NodePath("Tool panel/SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1ixp"]
-shader = ExtResource("3_m1ixp")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjb3y"]
+shader = ExtResource("3_w8vbv")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/tolerance = 0.0
@@ -20,7 +20,7 @@ shader_parameter/hue_shift = 0.0
 shader_parameter/sat_shift = 0.0
 shader_parameter/val_shift = 0.0
 
-[node name="ScrollContainer" type="ScrollContainer"]
+[node name="PaletteSwapper" type="ScrollContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,7 +31,7 @@ horizontal_scroll_mode = 0
 [node name="Tool panel" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("1_m1ixp")
+script = ExtResource("1_nnncb")
 
 [node name="Title" type="Label" parent="Tool panel"]
 layout_mode = 2
@@ -57,7 +57,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 base_type = "Texture2D"
-script = ExtResource("3_0qdf2")
+script = ExtResource("2_tjb3y")
 metadata/_custom_type_script = "uid://8wlp54gwf3b2"
 
 [node name="Target Container" type="HBoxContainer" parent="Tool panel"]
@@ -164,13 +164,13 @@ theme_override_constants/separation = 22
 
 [node name="TextureRect" type="TextureRect" parent="Tool panel"]
 layout_mode = 2
-texture = SubResource("ViewportTexture_0qdf2")
+texture = SubResource("ViewportTexture_nnncb")
 
 [node name="SubViewport" type="SubViewport" parent="Tool panel"]
 size = Vector2i(16, 16)
 
 [node name="Sprite2D" type="Sprite2D" parent="Tool panel/SubViewport"]
-material = SubResource("ShaderMaterial_m1ixp")
+material = SubResource("ShaderMaterial_tjb3y")
 position = Vector2(189, 85)
 
 [node name="Preview Label" type="Label" parent="Tool panel"]
