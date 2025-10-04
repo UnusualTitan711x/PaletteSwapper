@@ -4,6 +4,7 @@ extends VBoxContainer
 @onready var picker: AddonResourcePicker = $HBoxContainer3/AddonResourcePicker
 @onready var sprite: Sprite2D = $SubViewport/Sprite2D
 @onready var viewport: SubViewport = $SubViewport
+@onready var file_dialog: FileDialog = $FileDialog
 
 var texture
 var shader = preload("res://addons/palette_swapper/test_swap.gdshader")
@@ -46,26 +47,29 @@ func _on_tolerance_value_changed(value: float) -> void:
 func bake(source: Texture2D, target_color: Color, replace_color: Color, tolerance: float) -> ImageTexture:
 	var img : Image = source.get_image()
 	
+	var working_img = Image.create(img.get_width(), img.get_height(), false, img.get_format())
+	working_img.copy_from(img)
+	
 	# For safe manipulation of pixels
-	for y in range(img.get_height()):
-		for x in range(img.get_width()):
-			var c = img.get_pixel(x, y)
+	for y in range(working_img.get_height()):
+		for x in range(working_img.get_width()):
+			var c = working_img.get_pixel(x, y)
 			
 			# Closeness to color
 			if color_distance(c, target_color) < tolerance:
 				
 				var new_color = Color.from_hsv(
 					replace_color.h, # Replace hue
-					replace_color.s, # Replace saturation
+					c.s, # Replace saturation
 					c.v, # Maintain the same brightness
 					c.a # Maintain alpha
 				)
 				
 				# Replace the pixel with its new color
-				img.set_pixel(x, y, new_color)
+				working_img.set_pixel(x, y, new_color)
 	
 	# Output hte final texture
-	var out = ImageTexture.create_from_image(img)
+	var out = ImageTexture.create_from_image(working_img)
 	return out
 
 func color_distance(color1: Color, color2: Color) -> float:
@@ -77,15 +81,17 @@ func color_distance(color1: Color, color2: Color) -> float:
 	var result = sqrt(dr * dr + dg * dg + db * db)
 	return result
 
-func save_baked_texture(texture: ImageTexture):
-	var img : Image = texture.get_image()
-	img.save_png("res://new2.png")
-	
-	#Refresh the editor
-	EditorInterface.get_resource_filesystem().scan()
 	
 
 func _on_apply_button_pressed() -> void:
+	if sprite.texture:
+		file_dialog.show()
+
+
+func _on_file_dialog_file_selected(path: String) -> void:
+	save_image_to_path(path)
+
+func save_image_to_path(path: String):
 	var result = bake(
 		sprite.texture,
 		mat.get_shader_parameter("target_color"), 
@@ -93,4 +99,15 @@ func _on_apply_button_pressed() -> void:
 		mat.get_shader_parameter("tolerance")
 	)
 	
-	save_baked_texture(result)
+	var image : Image = result.get_image()
+	
+	image.save_png(path + ".png")
+	EditorInterface.get_resource_filesystem().scan()
+	
+
+func save_baked_texture(texture: ImageTexture):
+	var img : Image = texture.get_image()
+	img.save_png("res://new2.png")
+	
+	#Refresh the editor
+	EditorInterface.get_resource_filesystem().scan()

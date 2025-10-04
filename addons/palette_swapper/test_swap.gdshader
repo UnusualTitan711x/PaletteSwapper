@@ -69,10 +69,10 @@ void fragment()
 	{
 		// Convert both to HSV
 		vec3 hsv_tex = rgb2hsv(tex_color.rgb);
-		vec3 hsv_replaace = rgb2hsv(replace_color.rgb);
+		vec3 hsv_replace = rgb2hsv(replace_color.rgb);
 		
 		// Replace hue only
-		hsv_tex.x = hsv_replaace.x;
+		hsv_tex.x = hsv_replace.x;
 		
 		//Cpnvert back
 		tex_color.rgb = hsv2rgb(hsv_tex);

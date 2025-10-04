@@ -94,7 +94,11 @@ size = Vector2i(16, 16)
 material = SubResource("ShaderMaterial_m1ixp")
 position = Vector2(189, 85)
 
+[node name="FileDialog" type="FileDialog" parent="."]
+position = Vector2i(0, 36)
+
 [connection signal="color_changed" from="HBoxContainer/TargetColorPicker" to="." method="_on_target_color_picker_color_changed"]
 [connection signal="color_changed" from="HBoxContainer2/ReplaceColorPicker" to="." method="_on_replace_color_picker_color_changed"]
 [connection signal="value_changed" from="HBoxContainer4/Tolerance" to="." method="_on_tolerance_value_changed"]
 [connection signal="pressed" from="ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
