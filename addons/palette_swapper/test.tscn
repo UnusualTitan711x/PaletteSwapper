@@ -14,20 +14,22 @@ layout_mode = 2
 text = "Palette Swapper"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_font_sizes/font_size = 21
-text = "BUTTON"
-script = ExtResource("1_2vxlo")
+
+[node name="Label" type="Label" parent="HBoxContainer3"]
+layout_mode = 2
+text = "Texture"
+
+[node name="AddonResourcePicker" type="EditorResourcePicker" parent="HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+base_type = "Texture"
+script = ExtResource("3_0qdf2")
+metadata/_custom_type_script = "uid://8wlp54gwf3b2"
 
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
-
-[node name="AddonResourcePicker" type="EditorResourcePicker" parent="."]
-layout_mode = 2
-base_type = "PackedScene"
-script = ExtResource("3_0qdf2")
-metadata/_custom_type_script = "uid://8wlp54gwf3b2"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -36,9 +38,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Target Color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer"]
+[node name="TargetColorPicker" type="ColorPickerButton" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 3
 text = "Target Color"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
@@ -48,7 +50,40 @@ layout_mode = 2
 layout_mode = 2
 text = "Replace Color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer2"]
+[node name="ReplaceColorPicker" type="ColorPickerButton" parent="HBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 3
 text = "Target Color"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer4"]
+layout_mode = 2
+text = "Tolerance"
+
+[node name="Tolerance" type="HSlider" parent="HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="ApplyButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 21
+text = "Apply Changes"
+script = ExtResource("1_2vxlo")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(390, 187)
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport"]
+position = Vector2(189, 85)
+
+[connection signal="color_changed" from="HBoxContainer/TargetColorPicker" to="." method="_on_target_color_picker_color_changed"]
+[connection signal="color_changed" from="HBoxContainer2/ReplaceColorPicker" to="." method="_on_replace_color_picker_color_changed"]
+[connection signal="value_changed" from="HBoxContainer4/Tolerance" to="." method="_on_tolerance_value_changed"]
